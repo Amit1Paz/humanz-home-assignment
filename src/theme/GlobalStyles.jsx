@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
-    button {
+    button, input {
         border: none;
         font-size: 1rem;
     }

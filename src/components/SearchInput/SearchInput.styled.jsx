@@ -1,7 +1,16 @@
 import styled from "styled-components";
+import colors from "../../theme/colors";
 
-export const StyledSearchInput = styled.input`
+export const StyledSearchInput = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   padding: 0.5rem 1rem;
   width: 17rem;
+  border: 1px solid ${colors.darkGrayishBlue};
   border-radius: 100rem;
+
+  input {
+      width: 80%;
+  }
 `;
