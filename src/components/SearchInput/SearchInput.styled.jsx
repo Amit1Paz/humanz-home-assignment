@@ -11,7 +11,7 @@ export const StyledSearchInput = styled.div`
   border-radius: 100rem;
 
   input {
-      width: 80%;
+      width: 90%;
   }
   input:focus {
       outline: none;
