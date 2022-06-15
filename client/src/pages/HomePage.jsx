@@ -1,13 +1,13 @@
 import Header from "../components/Header/Header";
 import { StyledPage } from "./StyledPage";
-import Searchinput from "../components/SearchInput/SearchInput";
+import SearchInput from "../components/SearchInput/SearchInput";
 import Client from "../components/Client/Client";
 
 const Homepage = () => {
   return (
     <StyledPage>
       <Header />
-      <Searchinput />
+      <SearchInput />
       <ul>
         <li>
           <Client />

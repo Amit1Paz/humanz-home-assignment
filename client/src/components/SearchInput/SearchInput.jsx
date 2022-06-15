@@ -1,7 +1,7 @@
 import { StyledSearchInput } from "./SearchInput.styled";
 import SearchIcon from "../../assets/images/search-icon.svg";
 
-const Searchinput = () => {
+const SearchInput = () => {
   return (
     <StyledSearchInput>
       <img src={SearchIcon} alt="search" />
@@ -10,4 +10,4 @@ const Searchinput = () => {
   );
 };
 
-export default Searchinput;
+export default SearchInput;
