@@ -23,19 +23,24 @@ const Homepage = () => {
       <SearchInput />
       {isLoading && <Loading />}
       {error && <Error error={error.response.status} />}
-      {data && <ul>
-        {data.map(client => {
-          return <li>
-            <Client 
-              name={client.Name}
-              id={client.ID}
-              email={client.Email}
-              phone={client.Phone}
-              ip={client.IP}
-            />
-          </li>
-        })}
-        </ul>}
+      {data && (
+        <ul>
+          {data.map((client) => {
+            return (
+              <li>
+                <Client
+                  key={client.id}
+                  name={client.Name}
+                  id={client.ID}
+                  email={client.Email}
+                  phone={client.Phone}
+                  ip={client.IP}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </StyledPage>
   );
 };
