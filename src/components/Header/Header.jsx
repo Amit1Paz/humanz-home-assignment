@@ -1,6 +1,6 @@
 import { StyledHeader } from "./Header.styled";
 import { StyledButton } from "../Button/Button.styled";
-import Logo from "../../assets/logo.svg";
+import Logo from "../../assets/images/logo.svg";
 
 const Header = () => {
   return (
