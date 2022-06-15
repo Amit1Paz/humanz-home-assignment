@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const clientsRouter = require("./routes/clients");
 
 dotenv.config();
 
@@ -20,5 +21,7 @@ mongoose.connection
   .on("error", (error) => {
     console.log(`error: ${error}`);
   });
+
+app.use("/clients", clientsRouter);
 
 app.listen(PORT, () => console.log(`Server is running on port: ${PORT}`));
