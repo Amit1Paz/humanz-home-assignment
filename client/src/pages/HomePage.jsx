@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import { StyledPage } from "./StyledPage";
 import SearchInput from "../components/SearchInput/SearchInput";
@@ -7,7 +8,14 @@ import Error from "../components/Error/Error";
 import useAxios from "../hooks/useAxios";
 
 const Homepage = () => {
+  const [data, setData] = useState([]);
   const { response, isLoading, error } = useAxios("get", "/clients");
+
+  useEffect(() => {
+    if (response) {
+      setData(response.data);
+    }
+  }, [response]);
 
   return (
     <StyledPage>
@@ -15,11 +23,19 @@ const Homepage = () => {
       <SearchInput />
       {isLoading && <Loading />}
       {error && <Error error={error.response.status} />}
-      <ul>
-        <li>
-          <Client />
-        </li>
-      </ul>
+      {data && <ul>
+        {data.map(client => {
+          return <li>
+            <Client 
+              name={client.Name}
+              id={client.ID}
+              email={client.Email}
+              phone={client.Phone}
+              ip={client.IP}
+            />
+          </li>
+        })}
+        </ul>}
     </StyledPage>
   );
 };

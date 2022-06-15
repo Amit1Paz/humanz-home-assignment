@@ -1,6 +1,6 @@
 import { StyledClient, StyledSection } from "./Client.styled";
 import MapIcon from "../../assets/images/map-icon.svg";
-import MailIcon from "../../assets/images/mail-icon.svg";
+import EmailIcon from "../../assets/images/mail-icon.svg";
 import PhoneIcon from "../../assets/images/phone-icon.svg";
 import IpIcon from "../../assets/images/ip-icon.svg";
 import DeleteIcon from "../../assets/images/delete-icon.svg";
@@ -11,8 +11,8 @@ const Client = (props) => {
   return (
     <StyledClient>
       <StyledSection>
-        <h2>Full name</h2>
-        <p>222222222</p>
+        <h2>{props.name}</h2>
+        <p>{props.id}</p>
         <div>
           <img src={MapIcon} alt="Address" />
           <p>Israel, Rishon Lezion</p>
@@ -21,18 +21,18 @@ const Client = (props) => {
       <StyledSection>
         <h4>Contact information</h4>
         <div>
-          <img src={MailIcon} alt="Email" />
-          <p>example@example.com</p>
+          <img src={EmailIcon} alt="Email" />
+          <p>{props.email}</p>
         </div>
         <div>
           <img src={PhoneIcon} alt="Phone" />
-          <p>054-4444-444</p>
+          <p>{props.phone}</p>
         </div>
       </StyledSection>
       <StyledSection>
         <div>
           <img src={IpIcon} alt="IP" />
-          <p>222.222.222.222</p>
+          <p>{props.ip}</p>
         </div>
       </StyledSection>
       <StyledSection>
@@ -47,9 +47,7 @@ const Client = (props) => {
 Client.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  country: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
-  mail: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
   phone: PropTypes.number.isRequired,
   ip: PropTypes.string.isRequired,
 };
