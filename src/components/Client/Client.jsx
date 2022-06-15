@@ -3,7 +3,9 @@ import MapIcon from "../../assets/images/map-icon.svg";
 import MailIcon from "../../assets/images/mail-icon.svg";
 import PhoneIcon from "../../assets/images/phone-icon.svg";
 import IpIcon from "../../assets/images/ip-icon.svg";
+import DeleteIcon from "../../assets/images/delete-icon.svg";
 import PropTypes from "prop-types";
+import Button from "../Button/Button";
 
 const Client = (props) => {
   return (
@@ -33,6 +35,11 @@ const Client = (props) => {
           <p>222.222.222.222</p>
         </div>
       </StyledSection>
+      <StyledSection>
+        <Button type="square">
+          <img src={DeleteIcon} alt="delete" />
+        </Button>
+      </StyledSection>
     </StyledClient>
   );
 };
@@ -44,7 +51,7 @@ Client.propTypes = {
   city: PropTypes.string.isRequired,
   mail: PropTypes.string.isRequired,
   phone: PropTypes.number.isRequired,
-  ip: PropTypes.string.isRequired
+  ip: PropTypes.string.isRequired,
 };
 
 export default Client;
