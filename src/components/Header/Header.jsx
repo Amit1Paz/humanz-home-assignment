@@ -1,10 +1,14 @@
 import { StyledHeader } from "./Header.styled";
+import { StyledButton } from "../Button/Button.styled";
 import Logo from "../../assets/logo.svg";
 
 const Header = () => {
-  return <StyledHeader>
+  return (
+    <StyledHeader>
       <img src={Logo} alt="Humanz" />
-  </StyledHeader>;
+      <StyledButton>Add a user</StyledButton>
+    </StyledHeader>
+  );
 };
 
 export default Header;
