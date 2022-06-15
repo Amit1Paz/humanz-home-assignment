@@ -1,8 +1,35 @@
-import React from 'react';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
 
-const useAxios = () => {
-    
-    return 
-}
+axios.defaults.baseURL = `http://localhost:${process.env.REACT_APP_PORT}/`;
+
+const useAxios = (method, url) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [response, setResponse] = useState(null);
+
+  const axios = async () => {
+    try {
+      const res = await axios[method](url);
+      setResponse(res);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    axios();
+  }, []);
+
+  return { response, isLoading, error };
+};
+
+useAxios.propTypes = {
+  method: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+};
 
 export default useAxios;
