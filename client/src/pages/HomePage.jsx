@@ -2,13 +2,14 @@ import Header from "../components/Header/Header";
 import { StyledPage } from "./StyledPage";
 import SearchInput from "../components/SearchInput/SearchInput";
 import Client from "../components/Client/Client";
-import useAxios from "../hooks/useAxios";
+import Loading from "../components/Loading/Loading";
 
 const Homepage = () => {
   return (
     <StyledPage>
       <Header />
       <SearchInput />
+      <Loading />
       <ul>
         <li>
           <Client />
