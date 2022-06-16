@@ -8,3 +8,8 @@ export const StyledPage = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const StyledFlexContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+`;

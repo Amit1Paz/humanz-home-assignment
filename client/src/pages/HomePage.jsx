@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { StyledPage, StyledFlexContainer } from "./StyledPage";
 import Header from "../components/Header/Header";
-import { StyledPage } from "./StyledPage";
 import SearchInput from "../components/SearchInput/SearchInput";
 import Client from "../components/Client/Client";
 import Loading from "../components/Loading/Loading";
@@ -9,16 +9,29 @@ import useAxios from "../hooks/useAxios";
 import Button from "../components/Button/Button";
 
 const Homepage = () => {
-  const [pages, setPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [nextPage, setNextPage] = useState(null);
+  const [prevPage, setPrevPage] = useState(null);
   const [data, setData] = useState([]);
-  const { response, isLoading, error } = useAxios("get", `/clients?page=${page}`);
+
+  const { response, isLoading, error } = useAxios("get", `/clients?page=${currentPage}`);
 
   useEffect(() => {
     if (response) {
       setData(response.data.clients);
-      setPages(response.data.pages);
+      setCurrentPage(response.data.pages.current);
+      setNextPage(response.data.pages.next);
+      setPrevPage(response.data.pages.prev);
     }
   }, [response]);
+
+  const switchPage = (direction) => {
+    if (direction === "next") {
+      setCurrentPage((currentPage) => currentPage + 1);
+    } else {
+      setCurrentPage((currentPage) => currentPage - 1);
+    }
+  };
 
   return (
     <StyledPage>
@@ -43,6 +56,10 @@ const Homepage = () => {
           })}
         </ul>
       )}
+      <StyledFlexContainer>
+        {prevPage && <Button onClick={() => switchPage("prev")}>Previous</Button>}
+        {nextPage && <Button onClick={() => switchPage("next")}>Next</Button>}
+      </StyledFlexContainer>
     </StyledPage>
   );
 };

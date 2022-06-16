@@ -22,7 +22,7 @@ const useAxios = (method, url) => {
 
   useEffect(() => {
     hendleAxios();
-  }, []);
+  }, [url]);
 
   return { response, isLoading, error };
 };
