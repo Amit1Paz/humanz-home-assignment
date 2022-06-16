@@ -28,7 +28,7 @@ router.delete("/:id", async (req, res) => {
     const endIndex = pages.current * limit;
 
     const clients = await Client.find()
-      .sort({ _id: 1 })
+      .sort({ Name: 1 })
       .limit(limit)
       .skip(startIndex);
 
@@ -81,7 +81,7 @@ router.post("/", async (req, res) => {
     const endIndex = pages.current * limit;
 
     const clients = await Client.find()
-      .sort({ _id: 1 })
+      .sort({ Name: 1 })
       .limit(limit)
       .skip(startIndex);
 
@@ -124,10 +124,11 @@ function getClients(model) {
       if (req.query.searchName) {
         search.Name = { $regex: req.query.searchName, $options: "i" };
       }
+      console.log(search)
 
       const clients = await model
         .find({ ...search })
-        .sort({ _id: 1 })
+        .sort({ Name: 1 })
         .limit(limit)
         .skip(startIndex);
 

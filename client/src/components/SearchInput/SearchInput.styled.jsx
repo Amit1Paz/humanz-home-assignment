@@ -2,6 +2,7 @@ import styled from "styled-components";
 import colors from "../../theme/colors";
 
 const media = {
+  550: "@media (max-width: 550px)",
   400: "@media (max-width: 400px)",
 };
 
@@ -16,15 +17,32 @@ export const StyledSearchInput = styled.div`
 
   input {
     width: 18rem;
+    font-size: 1.2rem;
+    color: ${colors.darkGrayishBlue};
   }
 
   input:focus {
     outline: none;
   }
 
-  ${media[400]} {
+  ${media[550]} {
+    button {
+      min-width: 0;
+    }
     input {
-      width: 13rem;
+      width: 11rem;
+    }
+  }
+
+  ${media[400]} {
+    gap: 0.5rem;
+    padding: 0.5rem;
+    button {
+      padding: 0.5rem 1rem;
+    }
+    input {
+      font-size: 1rem;
+      width: 10rem;
     }
   }
 `;
