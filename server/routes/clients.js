@@ -85,7 +85,7 @@ router.post("/", async (req, res) => {
       .limit(limit)
       .skip(startIndex);
 
-    if (endIndex < (await Client.find({ ...search }).countDocuments())) {
+    if (endIndex < (await Client.find().countDocuments())) {
       pages.next = pages.current + 1;
     }
 
@@ -122,7 +122,7 @@ function getClients(model) {
 
       const search = {};
       if (req.query.searchName) {
-        search.Name = req.query.searchName;
+        search.Name = { $regex: req.query.searchName, $options: "i" };
       }
 
       const clients = await model
