@@ -5,7 +5,7 @@ export const StyledClient = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 46rem;
+  width: 55rem;
   height: 6rem;
   padding: 0 1.5rem;
   margin: 1rem 0;
@@ -18,6 +18,7 @@ export const StyledSection = styled.div`
   flex-direction: column;
   justify-content: space-around;
   height: 90%;
+  
 
   h2 {
     color: ${colors.blue};
