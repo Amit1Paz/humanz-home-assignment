@@ -25,10 +25,6 @@ export const StyledForm = styled.form`
     border-radius: 100rem;
   }
 
-  input:last-of-type {
-    margin-bottom: 2rem;
-  }
-
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -36,6 +32,10 @@ export const StyledForm = styled.form`
 
   input[type="number"] {
     -moz-appearance: textfield;
+  }
+
+  button {
+    margin-top: 1rem;
   }
 
   button:hover {
@@ -48,3 +48,9 @@ export const StyledForm = styled.form`
     }
   }
 `;
+
+export const StyledError = styled.p`
+  font-size: 0.8rem;
+  color: ${colors.gray};
+  margin-bottom: 0.5rem;
+`

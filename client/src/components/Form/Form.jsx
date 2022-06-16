@@ -1,43 +1,45 @@
-import { useRef } from "react";
-import { StyledForm } from "./Form.styled";
+import { StyledForm, StyledError } from "./Form.styled";
+import { useForm } from "react-hook-form";
 import Button from "../Button/Button";
 import axios from "axios";
 import PropTypes from "prop-types";
 
 const Form = ({ setIsFormOpen, setData }) => {
-  const nameRef = useRef();
-  const idRef = useRef();
-  const emailRef = useRef();
-  const phoneRef = useRef();
-  const ipRef = useRef();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    const data = {
-      Name: nameRef.current.value,
-      ID: idRef.current.value,
-      Email: emailRef.current.value,
-      Phone: phoneRef.current.value,
-      IP: ipRef.current.value,
-    };
+  const handleFormSubmit = async (data) => {
     const res = await axios.post("/clients", data);
     setData(res.data.clients);
     setIsFormOpen(false);
   };
 
   return (
-    <StyledForm>
+    <StyledForm onSubmit={handleSubmit(handleFormSubmit)}>
       <label htmlFor="Name">Full Name:</label>
-      <input type="text" id="Name" name="Name" ref={nameRef} required />
+      <input type="text" id="Name" {...register("Name", { required: true })} />
+      {errors.Name && <StyledError>Name is invalid</StyledError>}
+
       <label htmlFor="ID">ID:</label>
-      <input type="number" id="ID" name="ID" ref={idRef} required />
+      <input type="number" id="ID" {...register("ID", { required: true })} />
+      {errors.ID && <StyledError>ID is invalid</StyledError>}
+
       <label htmlFor="Email">Email:</label>
-      <input type="email" id="Email" name="Email" ref={emailRef} required />
+      <input type="email" id="Email" {...register("Email", { required: true })} />
+      {errors.Email && <StyledError>Email is invalid</StyledError>}
+
       <label htmlFor="Phone">Phone:</label>
-      <input type="number" id="Phone" name="Phone" ref={phoneRef} required />
+      <input type="number" id="Phone" {...register("Phone", { required: true })} />
+      {errors.Phone && <StyledError>Phone is invalid</StyledError>}
+
       <label htmlFor="IP">IP:</label>
-      <input type="text" id="IP" name="IP" ref={ipRef} required />
-      <Button onClick={handleFormSubmit}>Submit</Button>
+      <input type="text" id="IP" {...register("IP", { required: true })} />
+      {errors.IP && <StyledError>IP is invalid</StyledError>}
+
+      <Button onClick={handleSubmit(handleFormSubmit)}>Submit</Button>
     </StyledForm>
   );
 };
