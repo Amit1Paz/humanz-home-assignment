@@ -57,6 +57,7 @@ const Homepage = () => {
                   email={client.Email}
                   phone={client.Phone}
                   ip={client.IP}
+                  searchValue={searchValue}
                 />
               </li>
             );

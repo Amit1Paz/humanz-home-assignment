@@ -32,7 +32,7 @@ const Client = (props) => {
   );
 
   const handleDeleteClient = async () => {
-    const res = await axios.delete(`/clients/${props.id}`);
+    const res = await axios.delete(`/clients/${props.id}?searchName=${props.searchValue}`);
     props.setData(res.data.clients);
   };
 
@@ -96,6 +96,7 @@ Client.propTypes = {
   phone: PropTypes.number.isRequired,
   ip: PropTypes.string.isRequired,
   setData: PropTypes.func.isRequired,
+  searchValue: PropTypes.string
 };
 
 export default Client;

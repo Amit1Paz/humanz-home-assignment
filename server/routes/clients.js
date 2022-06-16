@@ -27,12 +27,16 @@ router.delete("/:id", async (req, res) => {
     const startIndex = (pages.current - 1) * limit;
     const endIndex = pages.current * limit;
 
-    const clients = await Client.find()
+    const search = {};
+    if (req.query.searchName) {
+      search.Name = { $regex: req.query.searchName, $options: "i" };
+    }
+    const clients = await Client.find({ ...search })
       .sort({ Name: 1 })
       .limit(limit)
       .skip(startIndex);
 
-    if (endIndex < (await Client.find().countDocuments())) {
+    if (endIndex < (await Client.find({ ...search }).countDocuments())) {
       pages.next = pages.current + 1;
     }
 
@@ -124,7 +128,6 @@ function getClients(model) {
       if (req.query.searchName) {
         search.Name = { $regex: req.query.searchName, $options: "i" };
       }
-      console.log(search)
 
       const clients = await model
         .find({ ...search })
