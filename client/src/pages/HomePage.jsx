@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { StyledPage, StyledFlexContainer } from "./StyledPage";
 import Header from "../components/Header/Header";
 import SearchInput from "../components/SearchInput/SearchInput";
@@ -13,8 +13,14 @@ const Homepage = () => {
   const [nextPage, setNextPage] = useState(null);
   const [prevPage, setPrevPage] = useState(null);
   const [data, setData] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
 
-  const { response, isLoading, error } = useAxios("get", `/clients?page=${currentPage}`);
+  const searchRef = useRef();
+
+  const { response, isLoading, error } = useAxios(
+    "get",
+    `/clients?page=${currentPage}&searchName=${searchValue}`
+  );
 
   useEffect(() => {
     if (response) {
@@ -36,7 +42,7 @@ const Homepage = () => {
   return (
     <StyledPage>
       <Header />
-      <SearchInput />
+      <SearchInput searchRef={searchRef} setSearchValue={setSearchValue} />
       {isLoading && <Loading />}
       {error && <Error error={error.response.status} />}
       {data && (
@@ -45,6 +51,7 @@ const Homepage = () => {
             return (
               <li key={index}>
                 <Client
+                  setData={setData}
                   name={client.Name}
                   id={client.ID}
                   email={client.Email}
@@ -57,7 +64,9 @@ const Homepage = () => {
         </ul>
       )}
       <StyledFlexContainer>
-        {prevPage && <Button onClick={() => switchPage("prev")}>Previous</Button>}
+        {prevPage && (
+          <Button onClick={() => switchPage("prev")}>Previous</Button>
+        )}
         {nextPage && <Button onClick={() => switchPage("next")}>Next</Button>}
       </StyledFlexContainer>
     </StyledPage>

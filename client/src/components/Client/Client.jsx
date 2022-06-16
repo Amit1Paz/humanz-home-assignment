@@ -8,12 +8,21 @@ import DeleteIcon from "../../assets/images/delete-icon.svg";
 import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import useAxios from "../../hooks/useAxios";
+import axios from "axios";
 
 const Client = (props) => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
 
-  const { response, isLoading, error } = useAxios("get", `http://ip-api.com/json/${props.ip}`);
+  const { response, isLoading, error } = useAxios(
+    "get",
+    `http://ip-api.com/json/${props.ip}`
+  );
+
+  const handleDeleteClient = async () => {
+    const res = await axios.delete(`/clients/${props.id}`);
+    props.setData(res.data.clients);
+  };
 
   useEffect(() => {
     if (response) {
@@ -60,7 +69,7 @@ const Client = (props) => {
         </div>
       </StyledSection>
       <StyledSection>
-        <Button type="square">
+        <Button type="square" onClick={handleDeleteClient}>
           <img src={DeleteIcon} alt="delete" />
         </Button>
       </StyledSection>
@@ -74,6 +83,7 @@ Client.propTypes = {
   email: PropTypes.string.isRequired,
   phone: PropTypes.number.isRequired,
   ip: PropTypes.string.isRequired,
+  setData: PropTypes.func.isRequired,
 };
 
 export default Client;
