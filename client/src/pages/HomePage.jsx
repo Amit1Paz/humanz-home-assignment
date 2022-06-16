@@ -6,14 +6,17 @@ import Client from "../components/Client/Client";
 import Loading from "../components/Loading/Loading";
 import Error from "../components/Error/Error";
 import useAxios from "../hooks/useAxios";
+import Button from "../components/Button/Button";
 
 const Homepage = () => {
+  const [pages, setPages] = useState(0);
   const [data, setData] = useState([]);
-  const { response, isLoading, error } = useAxios("get", "/clients?page=30");
+  const { response, isLoading, error } = useAxios("get", `/clients?page=${page}`);
 
   useEffect(() => {
     if (response) {
       setData(response.data.clients);
+      setPages(response.data.pages);
     }
   }, [response]);
 

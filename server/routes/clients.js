@@ -1,16 +1,33 @@
 const express = require("express");
+const { model } = require("mongoose");
 const router = express.Router();
 const Client = require("../models/client.model");
 
 router.get("/", async (req, res) => {
   try {
     const limit = 10;
-    let page = parseInt(req.query.page);
+    const pages = {
+      current: null,
+      next: null,
+      prev: null,
+    };
 
-    if (!page) {
-      page = 1;
+    pages.current = parseInt(req.query.page);
+
+    if (!pages.current) {
+      pages.current = 1;
     }
-    const startIndex = (page - 1) * limit;
+
+    const startIndex = (pages.current - 1) * limit;
+    const endIndex = pages.current * limit;
+
+    if (endIndex < (await Client.countDocuments())) {
+      pages.next = pages.current + 1;
+    }
+
+    if (startIndex > 0) {
+      pages.prev = pages.current - 1;
+    }
 
     const clients = await Client.find()
       .sort({ _id: 1 })
@@ -18,7 +35,7 @@ router.get("/", async (req, res) => {
       .skip(startIndex);
 
     res.send({
-      page,
+      pages,
       clients,
     });
   } catch (err) {
