@@ -28,11 +28,23 @@ const Form = ({ setIsFormOpen, setData }) => {
       {errors.ID && <StyledError>ID is invalid</StyledError>}
 
       <label htmlFor="Email">Email:</label>
-      <input type="email" id="Email" {...register("Email", { required: true })} />
+      <input
+        type="email"
+        id="Email"
+        {...register("Email", {
+          required: true,
+          pattern:
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        })}
+      />
       {errors.Email && <StyledError>Email is invalid</StyledError>}
 
       <label htmlFor="Phone">Phone:</label>
-      <input type="number" id="Phone" {...register("Phone", { required: true })} />
+      <input
+        type="number"
+        id="Phone"
+        {...register("Phone", { required: true })}
+      />
       {errors.Phone && <StyledError>Phone is invalid</StyledError>}
 
       <label htmlFor="IP">IP:</label>
