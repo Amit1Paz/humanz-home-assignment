@@ -13,7 +13,7 @@ const Client = (props) => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
 
-  const { response } = useAxios("get", "http://ip-api.com/json/24.48.0.1");
+  const { response, isLoading, error } = useAxios("get", "http://ip-api.com/json/24.48.0.1");
 
   useEffect(() => {
     if (response) {
@@ -29,9 +29,9 @@ const Client = (props) => {
         <p>{props.id}</p>
         <div>
           <img src={MapIcon} alt="Address" />
-          <p>
-            {country}, {city}
-          </p>
+          {isLoading && <p>Loading...</p>}
+          {error && <p>There is no known location</p>}
+          {country && city && <p>{country}, {city}</p>}
         </div>
       </StyledSection>
       <StyledSection>

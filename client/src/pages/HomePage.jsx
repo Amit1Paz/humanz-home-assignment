@@ -25,11 +25,10 @@ const Homepage = () => {
       {error && <Error error={error.response.status} />}
       {data && (
         <ul>
-          {data.map((client) => {
+          {data.map((client, index) => {
             return (
-              <li>
+              <li key={index}>
                 <Client
-                  key={client.id}
                   name={client.Name}
                   id={client.ID}
                   email={client.Email}
