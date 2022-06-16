@@ -7,10 +7,13 @@ export const StyledButton = styled.button`
   color: ${colors.white};
   transition: 0.2s;
   border-radius: 100rem;
+  min-width: 8rem;
+
   ${({ type }) => {
     if (type === "square") {
       return css`
         padding: 0.5rem;
+        min-width: 0;
         width: 2rem;
         height: 2rem;
         border-radius: 0.5rem;

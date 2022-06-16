@@ -8,11 +8,23 @@ import DeleteIcon from "../../assets/images/delete-icon.svg";
 import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import useAxios from "../../hooks/useAxios";
+import useWindowSize from "../../hooks/useWindowSize";
 import axios from "axios";
 
 const Client = (props) => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
+  const [buttonType, setButtonType] = useState("square");
+
+  const windowSize = useWindowSize();
+
+  useEffect(() => {
+    if (windowSize.width < 850) {
+      setButtonType("regular");
+    } else {
+      setButtonType("square");
+    }
+  }, [windowSize]);
 
   const { response, isLoading, error } = useAxios(
     "get",
@@ -69,7 +81,7 @@ const Client = (props) => {
         </div>
       </StyledSection>
       <StyledSection>
-        <Button type="square" onClick={handleDeleteClient}>
+        <Button type={buttonType} onClick={handleDeleteClient}>
           <img src={DeleteIcon} alt="delete" />
         </Button>
       </StyledSection>

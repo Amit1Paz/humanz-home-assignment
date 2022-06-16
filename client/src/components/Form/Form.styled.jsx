@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import colors from "../../theme/colors";
 
+const media = {
+  425: "@media (max-width: 425px)",
+};
+
 export const StyledForm = styled.form`
   position: absolute;
   left: 50%;
@@ -36,5 +40,11 @@ export const StyledForm = styled.form`
 
   button:hover {
     background-color: ${colors.blue};
+  }
+
+  ${media[425]} {
+    button {
+      padding: 1rem 1.5rem;
+    }
   }
 `;
