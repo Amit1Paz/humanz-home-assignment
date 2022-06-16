@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { StyledClient, StyledSection } from "./Client.styled";
 import MapIcon from "../../assets/images/map-icon.svg";
 import EmailIcon from "../../assets/images/mail-icon.svg";
@@ -6,8 +7,21 @@ import IpIcon from "../../assets/images/ip-icon.svg";
 import DeleteIcon from "../../assets/images/delete-icon.svg";
 import PropTypes from "prop-types";
 import Button from "../Button/Button";
+import useAxios from "../../hooks/useAxios";
 
 const Client = (props) => {
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+
+  const { response } = useAxios("get", "http://ip-api.com/json/24.48.0.1");
+
+  useEffect(() => {
+    if (response) {
+      setCity(response.data.city);
+      setCountry(response.data.country);
+    }
+  }, [response]);
+
   return (
     <StyledClient>
       <StyledSection>
@@ -15,7 +29,9 @@ const Client = (props) => {
         <p>{props.id}</p>
         <div>
           <img src={MapIcon} alt="Address" />
-          <p>Israel, Rishon Lezion</p>
+          <p>
+            {country}, {city}
+          </p>
         </div>
       </StyledSection>
       <StyledSection>
