@@ -8,11 +8,11 @@ Hi! Here is a brief explanation of my home assignment.
 I decided to divide the data into pages and display 10 per page for best performance.
 
 
-## Requirements that I met:
+## Requirements:
 ### Obligatory:
 - Show the existing clients.
 - Add and remove a client.
-- Filter the clients by their names.
+- Filter clients by their name.
 - Input fields should be validated.
 ### Mandatory:
 - Usage of a database.
@@ -30,7 +30,6 @@ I decided to divide the data into pages and display 10 per page for best perform
 - PropTypes
 
 ### Database - Atlas by MongoDB
-I chose to work with NoSQL database.
 ___
 
 
