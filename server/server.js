@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8000;
 const ATLAS = process.env.ATLAS;
 
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 mongoose.connect(ATLAS);

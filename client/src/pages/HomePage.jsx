@@ -9,11 +9,11 @@ import useAxios from "../hooks/useAxios";
 
 const Homepage = () => {
   const [data, setData] = useState([]);
-  const { response, isLoading, error } = useAxios("get", "/clients");
+  const { response, isLoading, error } = useAxios("get", "/clients?page=30");
 
   useEffect(() => {
     if (response) {
-      setData(response.data);
+      setData(response.data.clients);
     }
   }, [response]);
 
