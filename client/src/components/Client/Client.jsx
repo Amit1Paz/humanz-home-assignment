@@ -13,12 +13,16 @@ const Client = (props) => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
 
-  const { response, isLoading, error } = useAxios("get", "http://ip-api.com/json/24.48.0.1");
+  const { response, isLoading, error } = useAxios("get", `http://ip-api.com/json/${props.ip}`);
 
   useEffect(() => {
     if (response) {
-      setCity(response.data.city);
-      setCountry(response.data.country);
+      if (response.data.status === "fail") {
+        return setCountry(response.data.status);
+      } else {
+        setCity(response.data.city);
+        setCountry(response.data.country);
+      }
     }
   }, [response]);
 
@@ -30,8 +34,12 @@ const Client = (props) => {
         <div>
           <img src={MapIcon} alt="Address" />
           {isLoading && <p>Loading...</p>}
-          {error && <p>There is no known location</p>}
-          {country && city && <p>{country}, {city}</p>}
+          {error || !country || (!city && <p>There is no known location</p>)}
+          {country && city && (
+            <p>
+              {country}, {city}
+            </p>
+          )}
         </div>
       </StyledSection>
       <StyledSection>
