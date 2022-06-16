@@ -50,7 +50,10 @@ router.get("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const clientId = parseInt(req.params.id);
-    Client.deleteOne({ ID: clientId });
+
+    await Client.deleteOne({ ID: clientId }).then((id) =>
+      console.log(`${clientId} was deleted`)
+    );
 
     const limit = 10;
     const pages = {
@@ -59,10 +62,14 @@ router.delete("/:id", async (req, res) => {
       prev: null,
     };
 
+    if (!pages.current) {
+      pages.current = 1;
+    }
+
     const startIndex = (pages.current - 1) * limit;
     const endIndex = pages.current * limit;
-
-    const clients = await Client.find({})
+    
+    const clients = await Client.find()
       .sort({ _id: 1 })
       .limit(limit)
       .skip(startIndex);
@@ -74,7 +81,7 @@ router.delete("/:id", async (req, res) => {
     if (startIndex > 0) {
       pages.prev = pages.current - 1;
     }
-
+    console.log(clients);
     res.send({
       pages,
       clients,
@@ -91,6 +98,7 @@ router.post("/", async (req, res) => {
     const Phone = parseInt(req.body.Phone);
     const Email = req.body.Email;
     const IP = req.body.IP;
+
     const newClient = new Client({
       Name: Name,
       ID: ID,
@@ -107,15 +115,14 @@ router.post("/", async (req, res) => {
       prev: null,
     };
 
+    if (!pages.current) {
+      pages.current = 1;
+    }
+
     const startIndex = (pages.current - 1) * limit;
     const endIndex = pages.current * limit;
 
-    const search = {};
-    if (req.query.searchName) {
-      search.Name = req.query.searchName;
-    }
-
-    const clients = await Client.find({ ...search })
+    const clients = await Client.find()
       .sort({ _id: 1 })
       .limit(limit)
       .skip(startIndex);
