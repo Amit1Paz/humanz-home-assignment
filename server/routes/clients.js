@@ -3,15 +3,14 @@ const { model } = require("mongoose");
 const router = express.Router();
 const Client = require("../models/client.model");
 
-const limit = 10;
-const pages = {
-  current: null,
-  next: null,
-  prev: null,
-};
-
 router.get("/", async (req, res) => {
   try {
+    const limit = 10;
+    const pages = {
+      current: null,
+      next: null,
+      prev: null,
+    };
     pages.current = parseInt(req.query.page);
 
     if (!pages.current) {
@@ -24,7 +23,6 @@ router.get("/", async (req, res) => {
     const search = {};
     if (req.query.searchName) {
       search.Name = req.query.searchName;
-      console.log(search);
     }
 
     const clients = await Client.find({ ...search })
@@ -52,16 +50,22 @@ router.get("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const clientId = parseInt(req.params.id);
-    Client.deleteOne({ ID: clientId }).then(console.log("deleted"));
+    Client.deleteOne({ ID: clientId });
+
+    const limit = 10;
+    const pages = {
+      current: null,
+      next: null,
+      prev: null,
+    };
 
     const startIndex = (pages.current - 1) * limit;
     const endIndex = pages.current * limit;
+
     const clients = await Client.find({})
       .sort({ _id: 1 })
       .limit(limit)
       .skip(startIndex);
-
-    console.log(clients);
 
     if (endIndex < (await Client.find().countDocuments())) {
       pages.next = pages.current + 1;
@@ -95,14 +99,20 @@ router.post("/", async (req, res) => {
       IP: IP,
     });
     newClient.save();
-    
+
+    const limit = 10;
+    const pages = {
+      current: null,
+      next: null,
+      prev: null,
+    };
+
     const startIndex = (pages.current - 1) * limit;
     const endIndex = pages.current * limit;
 
     const search = {};
     if (req.query.searchName) {
       search.Name = req.query.searchName;
-      console.log(search);
     }
 
     const clients = await Client.find({ ...search })
