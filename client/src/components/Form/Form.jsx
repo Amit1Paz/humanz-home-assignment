@@ -1,24 +1,28 @@
+import { useRef } from "react";
 import { StyledForm } from "./Form.styled";
 import Button from "../Button/Button";
 import axios from "axios";
-import { useRef } from "react";
+import PropTypes from "prop-types";
 
-const Form = () => {
+const Form = ({ setIsFormOpen, setData }) => {
   const nameRef = useRef();
   const idRef = useRef();
   const emailRef = useRef();
   const phoneRef = useRef();
   const ipRef = useRef();
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      Name: nameRef.current,
-      ID: idRef.current,
-      Email: emailRef.current,
-      Phone: phoneRef.current,
-      IP: ipRef.current,
+      Name: nameRef.current.value,
+      ID: idRef.current.value,
+      Email: emailRef.current.value,
+      Phone: phoneRef.current.value,
+      IP: ipRef.current.value,
     };
+    const res = await axios.post("/clients", data);
+    setData(res.data.clients);
+    setIsFormOpen(false);
   };
 
   return (
@@ -36,6 +40,11 @@ const Form = () => {
       <Button onClick={handleFormSubmit}>Submit</Button>
     </StyledForm>
   );
+};
+
+Form.propTypes = {
+  setIsFormOpen: PropTypes.func.isRequired,
+  setData: PropTypes.func.isRequired,
 };
 
 export default Form;

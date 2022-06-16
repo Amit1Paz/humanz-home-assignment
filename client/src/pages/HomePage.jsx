@@ -41,7 +41,7 @@ const Homepage = () => {
 
   return (
     <StyledPage>
-      <Header />
+      <Header setData={setData} />
       <SearchInput searchRef={searchRef} setSearchValue={setSearchValue} />
       {isLoading && <Loading />}
       {error && <Error error={error.response.status} />}
